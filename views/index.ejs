@@ -14,7 +14,9 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="bg-secondary bg-gradient text-white py-3 px-3 mt-4">Welcome to URL Shortener Service</h1>
+      <h1 class="bg-white bg-gradient text-black py-3 px-3 mt-4">
+        Welcome to URL Shortener Service
+      </h1>
       <form action="/shortUrls" method="POST" class="my-4 form-inline">
         <label for="fullUrl" class="sr-only">Url</label>
         <input
@@ -35,24 +37,35 @@
         <button type="submit" class="btn btn-success">Submit</button>
       </form>
 
-      <table class="table table-striped table-responsive text-black">
-        <thead>
-          <tr>
-            <th>Full URL</th>
-            <th>Short URL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% shortUrls.forEach(shortUrl => { %>
-          <tr>
-            <td>
-              <a href="<%= shortUrl.full %>"><%= shortUrl.full %></a>
-            </td>
-            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+      <button id="showUrlsBtn" class="btn btn-dark">Show My URL's</button>
+
+      <div id="urlsTableDiv" style="display: none">
+        <table class="table table-striped table-responsive text-black">
+          <thead>
+            <tr>
+              <th>Full URL</th>
+              <th>Short URL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% shortUrls.forEach(shortUrl => { %>
+            <tr>
+              <td>
+                <a href="<%= shortUrl.full %>"><%= shortUrl.full %></a>
+              </td>
+              <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
     </div>
+    <script>
+      const showUrlsBtn = document.getElementById("showUrlsBtn");
+      const urlsTableDiv = document.getElementById("urlsTableDiv");
+      showUrlsBtn.addEventListener("click", function () {
+        urlsTableDiv.style.display = "block";
+      });
+    </script>
   </body>
 </html>
