@@ -91,14 +91,13 @@
           withoutFullUrl.style.display = "flex";
         } else {
           const shortUrl =
-            "<%= shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]].short %>";
+            "<%= shortUrls && Object.keys(shortUrls).length > 0 ? shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]].short : '' %>";
           const fullShortUrl = `https://urlshortener-dev.onrender.com/${shortUrl}`;
           shortenedUrlLink.href = fullShortUrl;
           shortenedUrlLink.textContent = fullShortUrl;
           shortenedUrl.style.display = "flex";
         }
       });
-      
     </script>
   </body>
 </html>
