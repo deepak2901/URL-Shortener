@@ -34,10 +34,12 @@
           id="alias"
           class="form-control mr-2"
         />
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" id="currentShortenedUrl" class="btn btn-success">
+          Submit
+        </button>
       </form>
 
-      <div style="display: flex">
+      <div id="shortenedUrl" style="display: none">
         <p><b>Your Shortened URL :&nbsp;</b></p>
         <a
           href="<%= shortUrls && Object.keys(shortUrls).length > 0 ? shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]].short : '' %>"
@@ -76,10 +78,24 @@
       const showUrlsBtn = document.getElementById("showUrlsBtn");
       const urlsTableDiv = document.getElementById("urlsTableDiv");
       const specificElement = document.getElementById("specificElement");
+      const shortenedUrl = document.getElementById("shortenedUrl");
+      const form = document.querySelector("form");
 
       showUrlsBtn.addEventListener("click", function () {
         urlsTableDiv.style.display = "block";
       });
+
+      form.addEventListener("submit", function (event) {
+        const fullUrlInput = document.getElementById("fullUrl");
+        if (fullUrlInput.value.trim() === "") {
+          event.preventDefault(); // Prevent form submission
+          fullUrlInput.focus(); // Set focus to the empty input field
+        } else {
+          shortenedUrl.style.display = "flex";
+          event.preventDefault();
+        }
+      });
+
     </script>
   </body>
 </html>
