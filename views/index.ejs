@@ -41,15 +41,12 @@
 
       <div id="shortenedUrl" style="display: none">
         <p><b>Your Shortened URL :&nbsp;</b></p>
-        <a
-          href="<%= shortUrls && Object.keys(shortUrls).length > 0 ? shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]].short : '' %>"
-        >
-          <%= shortUrls && Object.keys(shortUrls).length > 0 &&
-          shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]] ?
-          `https://urlshortener-dev.onrender.com/${shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length
-          - 1]].short}` : '' %>
-        </a>
+        <a id="shortenedUrlLink"></a>
       </div>
+
+      <p id="withoutFullUrl" style="display: none" class="bg-white text-danger">
+        <i><strong>Please Enter the full URL !</strong></i>
+      </p>
 
       <button id="showUrlsBtn" class="btn btn-dark">Show My URL's</button>
 
@@ -79,23 +76,29 @@
       const urlsTableDiv = document.getElementById("urlsTableDiv");
       const specificElement = document.getElementById("specificElement");
       const shortenedUrl = document.getElementById("shortenedUrl");
-      const form = document.querySelector("form");
+      const currentShortenedUrl = document.getElementById(
+        "currentShortenedUrl"
+      );
+      const fullUrlInput = document.getElementById("fullUrl");
+      const withoutFullUrl = document.getElementById("withoutFullUrl");
 
       showUrlsBtn.addEventListener("click", function () {
         urlsTableDiv.style.display = "block";
       });
 
-      form.addEventListener("submit", function (event) {
-        const fullUrlInput = document.getElementById("fullUrl");
-        if (fullUrlInput.value.trim() === "") {
-          event.preventDefault(); // Prevent form submission
-          fullUrlInput.focus(); // Set focus to the empty input field
+      currentShortenedUrl.addEventListener("click", function () {
+        if (fullUrlInput.value === "") {
+          withoutFullUrl.style.display = "flex";
         } else {
+          const shortUrl =
+            "<%= shortUrls[Object.keys(shortUrls)[Object.keys(shortUrls).length - 1]].short %>";
+          const fullShortUrl = `https://urlshortener-dev.onrender.com/${shortUrl}`;
+          shortenedUrlLink.href = fullShortUrl;
+          shortenedUrlLink.textContent = fullShortUrl;
           shortenedUrl.style.display = "flex";
-          event.preventDefault();
         }
       });
-
+      
     </script>
   </body>
 </html>
